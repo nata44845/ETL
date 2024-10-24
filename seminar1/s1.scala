@@ -1,5 +1,6 @@
 /*
-chcp 65001 && spark-shell -i E:\DS_GB\ETL\seminars\sem1\s6s1.scala --conf "spark.driver.extraJavaOptions=-Dfile.encoding=utf-8"
+C:\Nata\GeekBrains\gb-git\ETL\seminar1
+chcp 65001 && spark-shell -i C:\Nata\GeekBrains\gb-git\ETL\seminar1\s1.scala --conf "spark.driver.extraJavaOptions=-Dfile.encoding=utf-8"
 */
 
 import org.apache.spark.internal.Logging
@@ -21,10 +22,10 @@ var df1 = spark.read.format("com.crealytics.spark.excel")
         .option("excerptSize", 10)
         .option("header", "true")
         .format("excel")
-        .load("E:/DS_GB/ETL/seminars/sem1/sem1.xlsx")
+        .load("sem1.xlsx")
 		/*df1.show()*/
 		df1.filter(df1("Код предмета").isNotNull).select("Код предмета","Предмет","Учитель")
-		.write.format("jdbc").option("url","jdbc:mysql://localhost:3306/spark?user=root&password=psw")
+		.write.format("jdbc").option("url","jdbc:mysql://localhost:3306/spark?user=root&password=root&serverTimezone=UTC")
         .option("driver", "com.mysql.cj.jdbc.Driver").option("dbtable", "tasketl1a")
         .mode("overwrite").save()
 		import org.apache.spark.sql.expressions.Window
@@ -32,7 +33,7 @@ var df1 = spark.read.format("com.crealytics.spark.excel")
 		df1.withColumn("id",monotonicallyIncreasingId)
 		.withColumn("Код предмета", when(col("Код предмета").isNull, last("Код предмета", ignoreNulls = true).over(window1)).otherwise(col("Код предмета")))
 		.orderBy("id").drop("id","Предмет","Учитель")
-		.write.format("jdbc").option("url","jdbc:mysql://localhost:3306/spark?user=root&password=psw")
+		.write.format("jdbc").option("url","jdbc:mysql://localhost:3306/spark?user=root&password=root&serverTimezone=UTC")
         .option("driver", "com.mysql.cj.jdbc.Driver").option("dbtable", "tasketl1b")
         .mode("overwrite").save()
 	println("task 1")
