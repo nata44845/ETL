@@ -24,16 +24,20 @@ var df1 = spark.read.format("com.crealytics.spark.excel")
         .format("excel")
         .load("sem1.xlsx")
 		/*df1.show()*/
+
 		df1.filter(df1("Код предмета").isNotNull).select("Код предмета","Предмет","Учитель")
 		.write.format("jdbc").option("url","jdbc:mysql://localhost:3306/spark?user=root&password=root&serverTimezone=UTC")
         .option("driver", "com.mysql.cj.jdbc.Driver").option("dbtable", "tasketl1a")
         .mode("overwrite").save()
+
 		import org.apache.spark.sql.expressions.Window
 		val window1 = Window.partitionBy(lit(1)).orderBy(("id")).rowsBetween(Window.unboundedPreceding, Window.currentRow)
-		df1.withColumn("id",monotonicallyIncreasingId)
+		
+        var df2 = df1.withColumn("id",monotonicallyIncreasingId)
 		.withColumn("Код предмета", when(col("Код предмета").isNull, last("Код предмета", ignoreNulls = true).over(window1)).otherwise(col("Код предмета")))
 		.orderBy("id").drop("id","Предмет","Учитель")
-		.write.format("jdbc").option("url","jdbc:mysql://localhost:3306/spark?user=root&password=root&serverTimezone=UTC")
+        
+		df2.write.format("jdbc").option("url","jdbc:mysql://localhost:3306/spark?user=root&password=root&serverTimezone=UTC")
         .option("driver", "com.mysql.cj.jdbc.Driver").option("dbtable", "tasketl1b")
         .mode("overwrite").save()
 	println("task 1")
