@@ -48,7 +48,7 @@ if 1==1:
         .option("excerptSize", 10)\
         .option("header", "true")\
         .format("excel")\
-        .load("sem4.xlsx")\
+        .load("sem4_1.xlsx")\
         .withColumn("dt", current_timestamp())\
         .where(col("title")=="news")\
 		.write.format("jdbc").option("url","jdbc:mysql://localhost:3306/spark?user=root&password=root&serverTimezone=UTC")\
