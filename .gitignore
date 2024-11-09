@@ -1,0 +1,12 @@
+*.zip
+*.json
+
+/.idea/*
+/**/.idea/*
+/**/**/.idea/*
+/__pycache__/*
+/**/__pycache__/*
+/**/**/__pycache__/*
+
+/venv_etl
+/venv_etl38
