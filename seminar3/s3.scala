@@ -59,7 +59,10 @@ if(1==1){
     .mode("overwrite").save()
 
 	println("task 0")
+
+    spark.stop()
 }
+
 val s0 = (System.currentTimeMillis() - t1)/1000
 val s = s0 % 60
 val m = (s0/60) % 60

@@ -25,7 +25,9 @@ df1.write.format("jdbc").option("url","jdbc:mysql://localhost:3306/spark?user=ro
 .option("driver", "com.mysql.cj.jdbc.Driver").option("dbtable", "etl_hw3")
 .mode("overwrite").save()
 
-println("task 0")
+println("homework 3 complete")
+
+spark.stop()
 
 val s0 = (System.currentTimeMillis() - t1)/1000
 val s = s0 % 60

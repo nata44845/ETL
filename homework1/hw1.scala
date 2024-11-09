@@ -36,7 +36,9 @@ if(1==1){
     .option("driver", "com.mysql.cj.jdbc.Driver").option("dbtable", "etl_hw1_city")
     .mode("overwrite").save()
 
-	println("homework 1")
+	println("homework 1 complete")
+
+    spark.stop()
 }
 val s0 = (System.currentTimeMillis() - t1)/1000
 val s = s0 % 60
