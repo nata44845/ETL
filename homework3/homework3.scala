@@ -6,9 +6,6 @@ cd C:\Nata\GeekBrains\gb-git\ETL\homework3
 chcp 65001 && spark-shell -i homework3.scala --conf "spark.driver.extraJavaOptions=-Dfile.encoding=utf-8"
 */
 
-import org.apache.spark.sql.functions._
-import org.apache.spark.sql.expressions.Window
-
 val t1 = System.currentTimeMillis()
 
 val query = """
