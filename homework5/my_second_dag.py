@@ -3,15 +3,18 @@ from airflow.operators.python import PythonOperator, BranchPythonOperator
 from airflow.operators.bash import BashOperator
 from datetime import datetime
 from random import randint
+
 def _choosing_best_model(ti):
     accuracies = ti.xcom_pull(task_ids=[
     'training_model_A',
     'training_model_B',
     'training_model_C'
     ])
+
     if max(accuracies) > 8:
         return 'accurate'
     return 'inaccurate'
+
 def _training_model(model):
     return randint(1, 10)
 with DAG("my_dag", start_date=datetime(2021, 1 ,1), schedule_interval='@daily', catchup=False) as dag:
