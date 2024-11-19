@@ -17,6 +17,7 @@
 
 
 https://cloud.mail.ru/public/s2Lz/7FrokxZuW
+
 Ubuntu_2004.2021.825.0_x64.appx
 
 Для просмотра MobaXterm
@@ -27,6 +28,7 @@ Ubuntu_2004.2021.825.0_x64.appx
 - pandas 1.3.5
 
 sudo service mysql start
+
 airflow scheduler & airflow webserver -p 8089
 
 Run
